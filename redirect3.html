@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Google Drive</title>
-  <!-- Google Drive favicon -->
   <link rel="icon" href="https://ssl.gstatic.com/docs/doclist/images/infinite_arrow_favicon_5.ico" type="image/x-icon" />
   <style>
     body {
@@ -70,3 +69,13 @@
   <script>
     function redirect() {
       const select = document.getElementById('redirectSelect');
+      const url = select.value;
+      if (url) {
+        window.location.href = url; // INSTANT redirect
+      } else {
+        alert('Please select a destination.');
+      }
+    }
+  </script>
+</body>
+</html>
