@@ -1,78 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Google Drive</title>
-<link rel="icon" href="https://ssl.gstatic.com/docs/doclist/images/infinite_arrow_favicon_5.ico" type="image/x-icon" />
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #f5f5f5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-  }
-  .container {
-    background: white;
-    padding: 2rem 3rem;
-    border-radius: 12px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.15);
-    width: 350px;
-    text-align: center;
-  }
-  h2 {
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-  }
-  p.creator {
-    font-size: 0.9rem;
-    color: #666;
-    margin-top: 0;
-    margin-bottom: 1.8rem;
-  }
-  input[type="text"], input[type="password"] {
-    width: 100%;
-    padding: 0.5rem;
-    margin: 0.5rem 0 1rem 0;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-    box-sizing: border-box;
-  }
-  button {
-    width: 100%;
-    padding: 0.55rem;
-    border-radius: 6px;
-    border: none;
-    background-color: #1a73e8;
-    color: white;
-    font-size: 1rem;
-    cursor: pointer;
-    font-weight: 600;
-  }
-  button:hover {
-    background-color: #155ab6;
-  }
-  .hidden {
-    display: none;
-  }
-  select {
-    width: 100%;
-    padding: 0.5rem;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-    margin-bottom: 1rem;
-  }
-  .error {
-    color: #d93025;
-    margin-bottom: 1rem;
-    font-weight: 600;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Google Drive</title>
+  <link rel="icon" href="https://ssl.gstatic.com/docs/doclist/images/infinite_arrow_favicon_5.ico" type="image/x-icon" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 2rem 3rem;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.15);
+      width: 350px;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+    p.creator {
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 0;
+      margin-bottom: 1.8rem;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin: 0.5rem 0 1rem 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      padding: 0.55rem;
+      border-radius: 6px;
+      border: none;
+      background-color: #1a73e8;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    button:hover {
+      background-color: #155ab6;
+    }
+    .hidden {
+      display: none;
+    }
+    select {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    .error {
+      color: #d93025;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+  </style>
 </head>
 <body>
   <div class="container" id="loginContainer">
@@ -122,8 +122,8 @@
       return;
     }
 
-    // Open YouTube or Unblocked Games 76 normally in a new tab
-    if (url.includes('youtube.com') || url.includes('symbaloo.com')) {
+    // Open YouTube and Unblocked Games 76 normally in a new tab
+    if (url.includes('youtube.com') || url.includes('symbaloo.com') || url.includes('agariounblockedschool')) {
       window.open(url, '_blank');
     } else {
       // For all others, open in about:blank with iframe trick
