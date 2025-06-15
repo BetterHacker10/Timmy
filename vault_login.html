@@ -105,7 +105,6 @@
     const error = document.getElementById('errorMsg');
 
     if(user === 'timmy' && pass === 'timmy') {
-      // Hide login, show redirect options
       document.getElementById('loginContainer').classList.add('hidden');
       document.getElementById('redirectContainer').classList.remove('hidden');
       error.classList.add('hidden');
@@ -123,11 +122,11 @@
       return;
     }
 
-    if (url.includes('youtube.com')) {
-      // YouTube opens normally
+    // Open YouTube or Unblocked Games 76 normally in a new tab
+    if (url.includes('youtube.com') || url.includes('symbaloo.com')) {
       window.open(url, '_blank');
     } else {
-      // about:blank + iframe trick
+      // For all others, open in about:blank with iframe trick
       const win = window.open();
       if (win) {
         win.document.write(`
