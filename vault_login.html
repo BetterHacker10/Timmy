@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Google Drive</title>
-  <link rel="icon" href="https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Game Vault Login</title>
+  <link rel="icon" href="https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png" />
   <style id="theme-style">
     :root {
       --bg: #111;
@@ -18,19 +18,20 @@
       font-family: 'Segoe UI', sans-serif;
       background: var(--bg);
       color: var(--fg);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
     .container {
+      max-width: 400px;
+      margin: auto;
+      padding: 2rem;
       background: var(--input-bg);
-      padding: 2rem 3rem;
       border-radius: 12px;
       box-shadow: 0 0 25px rgba(0,0,0,0.5);
-      width: 360px;
       text-align: center;
+      flex-shrink: 0;
     }
     h2 {
       margin-bottom: 0.5rem;
@@ -41,7 +42,7 @@
       margin-top: 0;
       margin-bottom: 1.8rem;
     }
-    input, select {
+    input {
       width: 100%;
       padding: 0.55rem;
       margin: 0.5rem 0 1rem 0;
@@ -73,6 +74,7 @@
     .hidden {
       display: none;
     }
+    /* Toggle button styles */
     .toggle {
       position: fixed;
       bottom: 1rem;
@@ -81,68 +83,95 @@
       border: 2px solid var(--fg);
       border-radius: 6px;
       color: var(--fg);
-      padding: 0.1rem 0.2rem;
-      font-size: 0.6rem;
+      padding: 0.1rem 0.3rem;
+      font-size: 0.7rem;
       cursor: pointer;
-      width: 55px;
+      width: 65px;
+      text-align: center;
+      user-select: none;
+    }
+    /* Game frame fills remaining space */
+    #gameFrame {
+      flex-grow: 1;
+      width: 100%;
+      border: none;
+      display: none;
+    }
+    /* Controls bar for iframe games */
+    #gameControls {
+      background: var(--input-bg);
+      padding: 10px 15px;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      max-width: 600px;
+      margin: 1rem auto 1.5rem auto;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    }
+    #gameSelect {
+      flex-grow: 1;
+      padding: 0.4rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--input-bg);
+      color: var(--fg);
+      font-size: 1rem;
     }
   </style>
 </head>
 <body>
+
   <button class="toggle" onclick="toggleTheme()">🌓 Mode</button>
-  <div class="container">
-    <h2>Google Drive Login</h2>
+
+  <div class="container" id="loginContainer">
+    <h2>Game Vault Login</h2>
     <p class="creator">by Atticus D</p>
-    <div id="loginBox">
-      <input type="text" id="username" placeholder="Username">
-      <input type="password" id="password" placeholder="Password">
-      <div class="error hidden" id="error">Incorrect login. Try again.</div>
-      <button onclick="login()">Login</button>
-    </div>
-    <div id="redirectBox" class="hidden">
-      <select id="redirectSelect">
-        <option value="">Choose where to redirect</option>
-        <option value="https://www.vortice.app">Vortice</option>
-        <option value="https://sz-games.github.io/">SZ games</option>
-        <option value="https://www.youtube.com">YouTube</option>
-        <option value="https://www.symbaloo.com/mix/agariounblockedschool?lang=EN">Unblocked Games 76</option>
-        <option value="https://adfree-sz-games.github.io/">SZ games 2</option>
-        <option value="https://play.blooket.com/play">Blooket</option>
-        <option value="https://classroomx6.github.io/">Unblocked Games X6</option>
-        <option value="https://lessons-1.site/">Lessen 1</option>
-        <option value="https://1lesson.guru/">1 Lesson</option>
-        <option value="https://ubg365.github.io/homepage.html">UBG 365</option>
-      </select>
-      <button onclick="redirect()">Go</button>
-    </div>
+    <input type="text" id="username" placeholder="Username" autocomplete="off" />
+    <input type="password" id="password" placeholder="Password" autocomplete="off" />
+    <div class="error hidden" id="error">Incorrect login. Try again.</div>
+    <button onclick="login()">Login</button>
   </div>
+
+  <div id="gameControls">
+    <select id="gameSelect">
+      <option value="">Select a game</option>
+      <option value="https://play.blooket.com/play">Blooket</option>
+      <option value="https://www.symbaloo.com/mix/agariounblockedschool?lang=EN">Unblocked Games 76</option>
+      <option value="https://coolmathgames.com">Cool Math Games</option>
+      <option value="https://scratch.mit.edu">Scratch</option>
+      <option value="https://www.vortice.app">Vortice</option>
+      <option value="https://sz-games.github.io/">SZ Games</option>
+      <option value="https://adfree-sz-games.github.io/">SZ Games 2</option>
+      <option value="https://www.youtube.com">YouTube</option>
+    </select>
+    <button onclick="loadGame()">Load Game</button>
+  </div>
+
+  <iframe id="gameFrame" title="Game Frame"></iframe>
 
   <script>
     const ESCAPE_REDIRECT = "https://www.khanacademy.org/math";
     const CTRL_Q_REDIRECT = "https://classroom.google.com";
 
     function login() {
-      const user = document.getElementById("username").value;
-      const pass = document.getElementById("password").value;
+      const user = document.getElementById("username").value.trim().toLowerCase();
+      const pass = document.getElementById("password").value.trim().toLowerCase();
       const errorBox = document.getElementById("error");
       if (user === "timmy" && pass === "timmy") {
-        document.getElementById("loginBox").classList.add("hidden");
-        document.getElementById("redirectBox").classList.remove("hidden");
+        document.getElementById("loginContainer").style.display = "none";
+        document.getElementById("gameControls").style.display = "flex";
+        document.getElementById("gameFrame").style.display = "block";
         errorBox.classList.add("hidden");
       } else {
         errorBox.classList.remove("hidden");
       }
     }
 
-    function redirect() {
-      const url = document.getElementById("redirectSelect").value;
+    function loadGame() {
+      const url = document.getElementById('gameSelect').value;
       if (!url) return;
-      if (url.includes("youtube.com")) {
-        window.location.href = url;
-      } else {
-        const newTab = window.open("about:blank", "_blank");
-        newTab.location = url;
-      }
+      document.getElementById('gameFrame').src = url;
     }
 
     function toggleTheme() {
@@ -165,12 +194,14 @@
       }
     }
 
+    // Keyboard shortcuts
     document.addEventListener('keydown', function(e) {
       if (e.key === "Escape") {
         window.location.href = ESCAPE_REDIRECT;
       }
       if (e.ctrlKey && e.key.toLowerCase() === 'q') {
         window.location.href = CTRL_Q_REDIRECT;
+        e.preventDefault();
       }
     });
   </script>
