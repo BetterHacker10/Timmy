@@ -170,10 +170,24 @@
       }
     }
 
-    function loadGame() {
-      const url = document.getElementById('gameSelect').value;
-      if (!url) return;
-      document.getElementById('gameFrame').src = url;
+   function loadGame() {
+  const url = document.getElementById('gameSelect').value;
+  if (!url) return;
+
+  const blockedSites = [
+    "blooket.com",
+    "youtube.com",
+    "symbaloo.com"
+  ];
+
+  if (blockedSites.some(domain => url.includes(domain))) {
+    window.open(url, "_blank");
+    document.getElementById('gameFrame').src = "";
+  } else {
+    document.getElementById('gameFrame').src = url;
+  }
+}
+
     }
 
     function toggleTheme() {
