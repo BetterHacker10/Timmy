@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Google Drive Login</title>
+  <title>Game Vault Login</title>
   <link rel="icon" href="https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png" />
   <style id="theme-style">
     :root {
@@ -130,7 +130,7 @@
     <input type="text" id="username" placeholder="Username" autocomplete="off" />
     <input type="password" id="password" placeholder="Password" autocomplete="off" />
     <div class="error hidden" id="error">Incorrect login. Try again.</div>
-    <button onclick="login()">Login</button>
+    <button onclick="login()" id="loginButton">Login</button>
   </div>
 
   <div id="gameControls">
@@ -140,12 +140,11 @@
       <option value="https://www.vortice.app">Vortice</option>
       <option value="https://sz-games.github.io/">SZ Games</option>
       <option value="https://adfree-sz-games.github.io/">SZ Games 2</option>
-       <option value="https://lessons-1.site/">Lesson 1</option>
-       <option value="https://1lesson.guru/">1Lesson</option>
-       <option value="https://classroomx6.github.io/">Classroom 6</option>
+      <option value="https://lessons-1.site/">Lesson 1</option>
+      <option value="https://1lesson.guru/">1Lesson</option>
+      <option value="https://classroomx6.github.io/">Classroom 6</option>
       <option value="https://www.youtube.com">YouTube</option>
-       <option value="https://www.symbaloo.com/mix/agariounblockedschool?lang=EN">Unblocked Games 76</option>
-
+      <option value="https://www.symbaloo.com/mix/agariounblockedschool?lang=EN">Unblocked Games 76</option>
     </select>
     <button onclick="loadGame()">Load Game</button>
   </div>
@@ -170,24 +169,22 @@
       }
     }
 
-   function loadGame() {
-  const url = document.getElementById('gameSelect').value;
-  if (!url) return;
+    function loadGame() {
+      const url = document.getElementById('gameSelect').value;
+      if (!url) return;
 
-  const blockedSites = [
-    "blooket.com",
-    "youtube.com",
-    "symbaloo.com"
-  ];
+      const blockedSites = [
+        "blooket.com",
+        "youtube.com",
+        "symbaloo.com"
+      ];
 
-  if (blockedSites.some(domain => url.includes(domain))) {
-    window.open(url, "_blank");
-    document.getElementById('gameFrame').src = "";
-  } else {
-    document.getElementById('gameFrame').src = url;
-  }
-}
-
+      if (blockedSites.some(domain => url.includes(domain))) {
+        window.open(url, "_blank");
+        document.getElementById('gameFrame').src = "";
+      } else {
+        document.getElementById('gameFrame').src = url;
+      }
     }
 
     function toggleTheme() {
